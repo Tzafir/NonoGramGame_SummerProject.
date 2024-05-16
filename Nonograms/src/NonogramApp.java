@@ -2,15 +2,15 @@ import javax.swing.SwingUtilities;
 
 public class NonogramApp {
     public static void main(String[] args){
-        boolean[][] solutionNano = {
-            {true, false, true, false, true},
-            {true, false, true, false, true},
-            {true, false, true, false, true},
-            {true, false, true, false, true},
-            {true, false, true, false, true},
+        int[][] solutionNono = {
+            {1, 0, 0, 1, 0},
+            {1, 0, 0, 1, 0},
+            {0, 0, 0, 1, 0},
+            {1, 0, 0, 1, 0},
+            {1, 0, 0, 1, 0},
         };
         SwingUtilities.invokeLater(() -> {
-            new NanogramGrid(solutionNano);
+            new NanogramGrid(solutionNono);
         });
     }
 }
