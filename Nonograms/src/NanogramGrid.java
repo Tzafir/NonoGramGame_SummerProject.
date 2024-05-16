@@ -1,31 +1,33 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
 public class NanogramGrid extends JFrame {
-    //Atributes for the class NanogramGrid
-    //Also includes getter methods
+    // Attributes for the class NanogramGrid
+    // Also includes getter methods
     private final int row;
     private final int col;
     private final JButton[][] gridButtons;
     private final int[][] solutionNono;
-    private String[] getRowNumbers(int[][] solutionNono){
+
+    private String[] getRowNumbers(int[][] solutionNono) {
         String[] rowNumber = new String[solutionNono.length];
-        for(int i = 0;i<solutionNono.length;i++){
+        for (int i = 0; i < solutionNono.length; i++) {
             String rowNumbers = "";
             int count = 0;
-            for(int j = 0;j<solutionNono[i].length;j++){
-                
-                if (solutionNono[i][j] != 0){ //we Check that the element is non-zero and add it to the counter
+            for (int j = 0; j < solutionNono[i].length; j++) {
+
+                if (solutionNono[i][j] != 0) { // we Check that the element is non-zero and add it to the counter
                     count++;
-                }else{
-                    if(count>0){ //If the element is zero then we add the count to the variable rowNumbers.
-                        rowNumbers += count ;
+                } else {
+                    if (count > 0) { // If the element is zero then we add the count to the variable rowNumbers.
+                        rowNumbers += count + " ";
                         count = 0;
                     }
                 }
             }
-            if (count>0){
-                rowNumbers += count;//In case the last element is not non-zero.
+            if (count > 0) {
+                rowNumbers += count; // In case the last element is not non-zero.
             }
             if (rowNumbers.isEmpty()) {
                 rowNumbers = "0";
@@ -34,23 +36,24 @@ public class NanogramGrid extends JFrame {
         }
         return rowNumber;
     }
-    private String[] getColumnNumbers(int[][] solutionNano){
+
+    private String[] getColumnNumbers(int[][] solutionNano) {
         String[] colNumber = new String[solutionNono.length];
-        for(int j = 0;j<solutionNono[0].length;j++){
+        for (int j = 0; j < solutionNono[0].length; j++) {
             String colNumbers = "";
             int count = 0;
-            for(int i = 0;i<solutionNono.length;i++){
-                
-                if (solutionNono[i][j] != 0){
+            for (int i = 0; i < solutionNono.length; i++) {
+
+                if (solutionNono[i][j] != 0) {
                     count++;
-                }else{
-                    if(count>0){
-                        colNumbers += count ;
+                } else {
+                    if (count > 0) {
+                        colNumbers += count +" ";
                         count = 0;
                     }
                 }
             }
-            if (count>0){
+            if (count > 0) {
                 colNumbers += count;
             }
             if (colNumbers.isEmpty()) {
@@ -60,54 +63,74 @@ public class NanogramGrid extends JFrame {
         }
         return colNumber;
     }
+
     // constructor
-    public NanogramGrid(int [][] solution) {
+    public NanogramGrid(int[][] solution) {
         this.solutionNono = solution;
         this.row = solution.length;
         this.col = solution[0].length;
 
         setTitle("Nanogram");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-        //Creating The layout with JPanel for the grid
-        JPanel gridNano = new JPanel();
-        gridNano.setLayout(new GridLayout(row, col));
+        // Creating The layout with JPanel for the grid
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel rowPanel = new JPanel(new GridLayout(row, 1));
+        JPanel columnPanel = new JPanel(new GridLayout(1, col));
+        JPanel gridPanel = new JPanel(new GridLayout(row, col));
+        // Adding the Row labels
+        String[] rowNumbers = getRowNumbers(solution);
+        for (String rowNumber : rowNumbers) {
+            JLabel label = new JLabel(rowNumber, SwingConstants.CENTER);
+            label.setPreferredSize(new Dimension(50, 20));
+            rowPanel.add(label);
+        }
+        // Adding the Column labels
+        String[] colNumbers = getColumnNumbers(solution);
+        for (String colNumber : colNumbers) {
+            JLabel label = new JLabel(colNumber, SwingConstants.CENTER);
+            label.setPreferredSize(new Dimension(50, 20));
+            columnPanel.add(label);
+        }
+
         gridButtons = new JButton[row][col];
+        Dimension buttonSize = new Dimension(50, 50);
 
         // Creating grid buttons
-        //Done using a nested for loop
-        //Each Button will have a Mouse listener
+        // Done using a nested for loop
+        // Each Button will have a Mouse listener
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 JButton button = new JButton();
+                button.setPreferredSize(buttonSize);
+                gridButtons[i][j] = button;
                 button.setBackground(Color.YELLOW);
                 button.setOpaque(true);
                 button.setBorderPainted(false);
                 button.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (SwingUtilities.isLeftMouseButton(e)){
-                            if (button.getBackground() == Color.BLACK){
+                        if (SwingUtilities.isLeftMouseButton(e)) {
+                            if (button.getBackground() == Color.BLACK) {
                                 button.setBackground(Color.YELLOW);
                             } else {
                                 button.setBackground(Color.BLACK);
                             }
-                        }else if (SwingUtilities.isRightMouseButton(e)) {
+                        } else if (SwingUtilities.isRightMouseButton(e)) {
                             button.setBackground(Color.WHITE);
                         }
 
                     }
                 });
-                gridButtons[i][j] = button;
-                gridNano.add(button);
+                gridPanel.add(button);
             }
         }
-
-        add(gridNano, BorderLayout.CENTER);
-
+        mainPanel.add(rowPanel, BorderLayout.WEST);
+        mainPanel.add(columnPanel, BorderLayout.NORTH);
+        mainPanel.add(gridPanel, BorderLayout.CENTER);
+        add(mainPanel);
         // Set size and visibility
         pack();
         setVisible(true);
-    
+
     }
 }
