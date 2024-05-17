@@ -39,14 +39,14 @@ public class NanogramGrid extends JFrame {
         String[] rowNumbers = getRowNumbers(solution);
         for (String rowNumber : rowNumbers) {
             JLabel label = new JLabel(rowNumber, SwingConstants.CENTER);
-            label.setPreferredSize(new Dimension(50, 20));
+            label.setPreferredSize(new Dimension(60, 40));
             rowPanel.add(label);
         }
         // Adding the Column labels
         String[] colNumbers = getColumnNumbers(solution);
         for (String colNumber : colNumbers) {
             JLabel label = new JLabel(colNumber, SwingConstants.CENTER);
-            label.setPreferredSize(new Dimension(50, 20));
+            label.setPreferredSize(new Dimension(60, 40));
             columnPanel.add(label);
         }
 
@@ -129,6 +129,7 @@ public class NanogramGrid extends JFrame {
         });
         mainPanel.add(checkSolutionButton, BorderLayout.SOUTH);
         // Set size and visibility
+        setPreferredSize(new Dimension(800, 600));
         pack();
         setVisible(true);
 
