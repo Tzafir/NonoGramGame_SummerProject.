@@ -1,1 +1,6 @@
 //
+Javac NanogramGrid.java
+Javac NonogramSolverCheck.java
+javac NonogramLabel.java
+javac NonogramApp.java
+java NonogramApp
