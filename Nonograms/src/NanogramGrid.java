@@ -9,7 +9,7 @@ public class NanogramGrid extends JFrame {
     private final int col;
     private final JButton[][] gridButtons;
     private final int[][] solutionNono;
-
+    private Color selectedColor = Color.BLACK;
     private boolean testSolution(){
         return NonogramSolverCheck.testSolution(solutionNono, gridButtons);
     }
@@ -52,7 +52,28 @@ public class NanogramGrid extends JFrame {
 
         gridButtons = new JButton[row][col];
         Dimension buttonSize = new Dimension(50, 50);
+         //Buttons for toggling between red and black
+         //Black
+        JButton selectBlackButton = new JButton("Black");
+        selectBlackButton.setBackground(Color.BLACK);
+        selectBlackButton.addActionListener(e -> {
+            selectedColor = Color.BLACK;
+        });
+        //RED
+        JButton selectRedButton = new JButton("RED");
+        selectRedButton.setBackground(Color.RED);
+        selectRedButton.addActionListener(e -> {
+            selectedColor = Color.RED;
+        });
+        //Creating a JPanel that will be played North so that the user can select between the two colours
+        JPanel colorSelectionPanel = new JPanel();
+        colorSelectionPanel.setLayout(new FlowLayout());
+        colorSelectionPanel.add(selectRedButton);
+        colorSelectionPanel.add(selectBlackButton);
+        add(colorSelectionPanel, BorderLayout.NORTH);
 
+        // Create the grid panel for the nonogram
+        gridPanel.setLayout(new GridLayout(solution.length, solution[0].length));
         // Creating grid buttons
         // Done using a nested for loop
         // Each Button will have a Mouse listener
@@ -68,13 +89,18 @@ public class NanogramGrid extends JFrame {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         if (SwingUtilities.isLeftMouseButton(e)) {
-                            if (button.getBackground() == Color.BLACK) {
-                                button.setBackground(Color.YELLOW);
+                            Color currentColor = button.getBackground();
+                            if (currentColor == Color.WHITE || currentColor == Color.YELLOW) {
+                                button.setBackground(selectedColor);
                             } else {
-                                button.setBackground(Color.BLACK);
+                                button.setBackground(Color.YELLOW);
                             }
                         } else if (SwingUtilities.isRightMouseButton(e)) {
-                            button.setBackground(Color.WHITE);
+                            if(button.getBackground() == Color.YELLOW){
+                                button.setBackground(Color.WHITE);
+                            }else{
+                                button.setBackground(Color.YELLOW);
+                            }
                         }
 
                     }
