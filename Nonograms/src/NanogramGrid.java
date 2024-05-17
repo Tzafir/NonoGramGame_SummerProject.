@@ -10,6 +10,10 @@ public class NanogramGrid extends JFrame {
     private final JButton[][] gridButtons;
     private final int[][] solutionNono;
 
+    private boolean testSolution(){
+        return NonogramSolverCheck.testSolution(solutionNono, gridButtons);
+    }
+
     private String[] getRowNumbers(int[][] solutionNono) {
         String[] rowNumber = new String[solutionNono.length];
         for (int i = 0; i < solutionNono.length; i++) {
@@ -124,10 +128,26 @@ public class NanogramGrid extends JFrame {
                 gridPanel.add(button);
             }
         }
+
         mainPanel.add(rowPanel, BorderLayout.WEST);
         mainPanel.add(columnPanel, BorderLayout.NORTH);
         mainPanel.add(gridPanel, BorderLayout.CENTER);
         add(mainPanel);
+        //Check solution
+        JButton checkSolutionButton = new JButton();
+        checkSolutionButton.setPreferredSize(new Dimension(50,50));
+        checkSolutionButton.setText("Check Solution");
+        checkSolutionButton.setBackground(Color.BLUE);
+                checkSolutionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                if (testSolution()){
+                    JOptionPane.showMessageDialog(NanogramGrid.this, "Congratulations! Solution is correct!");
+                }else{
+                    JOptionPane.showMessageDialog(NanogramGrid.this, "Sorry! Solution is incorrect!");
+                }
+            }
+        });
+        mainPanel.add(checkSolutionButton, BorderLayout.SOUTH);
         // Set size and visibility
         pack();
         setVisible(true);
