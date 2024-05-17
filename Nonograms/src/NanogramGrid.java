@@ -117,7 +117,7 @@ public class NanogramGrid extends JFrame {
         JButton checkSolutionButton = new JButton();
         checkSolutionButton.setPreferredSize(new Dimension(50,50));
         checkSolutionButton.setText("Check Solution");
-        checkSolutionButton.setBackground(Color.BLUE);
+        checkSolutionButton.setBackground(Color.WHITE);
                 checkSolutionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if (testSolution()){
