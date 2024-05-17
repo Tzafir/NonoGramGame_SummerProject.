@@ -11,6 +11,10 @@ public class NonogramSolverCheck {
                     if(solutionNono[i][j] == 0){
                         return false;
                     }
+                }else if (gridbuttons[i][j].getBackground() == Color.RED){
+                    if (solutionNono[i][j] == 0){
+                        return false;
+                    }
                 }else if (gridbuttons[i][j].getBackground() == Color.WHITE){
                     if(solutionNono[i][j] != 0){
                         return false;
