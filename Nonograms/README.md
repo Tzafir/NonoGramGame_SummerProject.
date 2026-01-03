@@ -18,9 +18,9 @@ Nanograms are logic puzzles in which cells in a grid must be filled or left blan
 ## 🛠️ Tech Stack
 
 * Language: **Java**
-* UI: JavaFX / Swing / Android Views *(update as needed)*
-* Build Tool: Gradle / Maven *(update as needed)*
-* Platform: Desktop / Android *(update as needed)*
+* UI Framework: **Java Swing**
+* Platform: **Desktop**
+* Build Tool: None (standard Java project)
 
 ## 📦 Installation
 
@@ -55,15 +55,15 @@ Nanograms are logic puzzles in which cells in a grid must be filled or left blan
 ## 📁 Project Structure
 
 ```text
-src/
-├── components/
-├── puzzles/
-├── styles/
-├── utils/
-└── App.js
+Nonograms/
+├── src/
+│   ├── NonogramApp.java          # Main application entry point
+│   ├── NonogramGrid.java         # Handles grid logic and state
+│   ├── NonogramLabel.java        # Row/column clue labels
+│   └── NonogramSolverCheck.java  # Solution validation logic
+├── README.md
+└── .gitignore
 ```
-
-*(Structure may vary)*
 
 ## 🧪 Testing
 
